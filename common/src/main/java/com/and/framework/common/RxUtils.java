@@ -1,9 +1,18 @@
 package com.and.framework.common;
 
+import com.and.framework.common.activity.RxActivity;
+import com.and.framework.common.fragment.RxFragment;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+
+import org.reactivestreams.Publisher;
+
+import io.reactivex.Flowable;
+import io.reactivex.FlowableTransformer;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -22,7 +31,6 @@ public class RxUtils {
                         .observeOn(AndroidSchedulers.mainThread());
             }
         };
-
     }
 
     /**
@@ -46,6 +54,29 @@ public class RxUtils {
                 });
             }
         };
+    }
+
+    public static <T> FlowableTransformer<T, T> rxSchedulerHelperForFlowable() { //compose简化线程
+        return new FlowableTransformer<T, T>() {
+            @Override
+            public Publisher<T> apply(@NonNull Flowable<T> upstream) {
+                return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
+
+    public static <T> LifecycleTransformer<T> bindToLifecycle(Object view) {
+        if (view == null) {
+            throw new NullPointerException("BaseView is null");
+        }
+        if (view instanceof RxActivity) {
+            return ((RxActivity) view).bindToLifecycle();
+        } else if (view instanceof RxFragment) {
+            return ((RxFragment) view).bindToLifecycle();
+        } else {
+            throw new IllegalArgumentException("view isn't activity or fragment");
+        }
     }
 
 }

@@ -1,34 +1,53 @@
 package com.and.framework;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.and.framework.common.ImageLoaderClient;
+import com.and.framework.common.activity.BaseActivity;
+import com.and.framework.demo.TestBaseActivity;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private ImageView imageView;
     private String url = "http://e.hiphotos.baidu.com/image/pic/item/aa18972bd40735fa324a79d792510fb30f240821.jpg";
 
+    @BindView(R.id.baseActivity)
+    Button btnBaseActivity;
+    @BindView(R.id.baseFragment)
+    Button btnBaseFragment;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int getLayoutRes() {
+        return R.layout.activity_main;
+    }
 
-
+    @Override
+    protected void onViewCreated() {
         imageView = (ImageView) findViewById(R.id.image_view);
-        ImageLoaderClient.get().load(this,url,imageView);
+        ImageLoaderClient.get().load(this, url, imageView);
+        setToolbarVisible(false);
+    }
 
+    @Override
+    protected void initEventAndData(Bundle bundle) {
 
+    }
 
-
-
-
-
-
-
-
-
+    @OnClick({R.id.baseActivity, R.id.baseFragment})
+    public void click(View view) {
+        switch (view.getId()) {
+            case R.id.baseActivity:
+                    launchScreen(TestBaseActivity.class);
+                break;
+            case R.id.baseFragment:
+                showProgressDialog();
+                break;
+        }
     }
 }

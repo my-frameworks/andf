@@ -22,6 +22,7 @@ public class ToastUtils {
 //        Toast.makeText(BaseApplication.get(), msg, Toast.LENGTH_SHORT).show();
 //    }
 
+
     /**
      * 显示浮动提示信息
      *

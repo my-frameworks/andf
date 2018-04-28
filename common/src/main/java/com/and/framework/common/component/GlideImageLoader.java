@@ -1,4 +1,4 @@
-package com.and.framework.common;
+package com.and.framework.common.component;
 
 import android.content.Context;
 import android.widget.ImageView;
@@ -17,4 +17,5 @@ public class GlideImageLoader implements IImageLoader {
     Glide.with(context).load(resourceId).into(imageView);
 
     }
+
 }

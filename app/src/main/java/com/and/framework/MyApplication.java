@@ -3,22 +3,22 @@ package com.and.framework;
 import com.and.framework.common.AndFApplication;
 import com.and.framework.common.agency.AndFConfigInterface;
 
+import com.and.framework.common.component.RetrofitHelper;
+
+
 
 public class MyApplication  extends AndFApplication implements AndFConfigInterface{
 
-    private static MyApplication application;
     @Override
     public void onCreate() {
         super.onCreate();
-        application = this;
+        try {
+            RetrofitHelper.getInstance().init(OkHttpClientUtils.getInstance().getClient(getAssets().open("")),"");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
-
-
-    public static MyApplication getInstance(){
-        return application;
-    }
-
 
     @Override
     public String getFilePath() {

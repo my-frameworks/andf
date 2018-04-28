@@ -1,5 +1,6 @@
-package com.and.framework.common;
+package com.and.framework.common.utils;
 
+import com.and.framework.common.BaseResponseBody;
 import com.and.framework.common.activity.RxActivity;
 import com.and.framework.common.fragment.RxFragment;
 import com.trello.rxlifecycle2.LifecycleTransformer;

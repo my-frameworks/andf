@@ -2,19 +2,22 @@ package com.and.framework;
 
 import android.app.Application;
 
+import com.and.framework.common.component.RetrofitHelper;
+
+
 
 public class MyApplication  extends Application{
 
-    private static MyApplication application;
     @Override
     public void onCreate() {
         super.onCreate();
-        application = this;
+        try {
+            RetrofitHelper.getInstance().init(OkHttpClientUtils.getInstance().getClient(getAssets().open("")),"");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
 
-    public static MyApplication getInstance(){
-        return application;
-    }
 }

@@ -2,7 +2,7 @@ package com.and.framework.common.component;
 
 
 
-import com.and.framework.common.RxUtils;
+import com.and.framework.common.utils.RxUtils;
 
 import java.util.concurrent.TimeUnit;
 

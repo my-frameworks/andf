@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.and.framework.common.ImageLoaderClient;
+import com.and.framework.common.component.ImageLoaderClient;
 import com.and.framework.common.activity.BaseActivity;
 import com.and.framework.demo.TestBaseActivity;
 
@@ -32,6 +32,9 @@ public class MainActivity extends BaseActivity {
         imageView = (ImageView) findViewById(R.id.image_view);
         ImageLoaderClient.get().load(this, url, imageView);
         setToolbarVisible(false);
+
+
+
     }
 
     @Override

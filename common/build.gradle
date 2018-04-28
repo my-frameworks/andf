@@ -9,7 +9,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -35,13 +35,13 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.7.1'
 
     //Lifecycle handling APIs for Android apps using RxJava
-    compile 'com.trello.rxlifecycle2:rxlifecycle:2.1.0'
+    api 'com.trello.rxlifecycle2:rxlifecycle:2.1.0'
     // If you want to bind to Android-specific lifecycles
-    compile('com.trello.rxlifecycle2:rxlifecycle-android:2.1.0', {
+    api('com.trello.rxlifecycle2:rxlifecycle-android:2.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile 'com.jakewharton:butterknife:8.8.1'
+    api 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     api 'com.squareup.retrofit2:retrofit:2.4.0'

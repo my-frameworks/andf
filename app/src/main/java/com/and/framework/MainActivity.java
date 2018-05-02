@@ -7,6 +7,8 @@ import android.widget.ImageView;
 
 import com.and.framework.common.component.ImageLoaderClient;
 import com.and.framework.common.activity.BaseActivity;
+import com.and.framework.common.utils.DownloadUtils;
+import com.and.framework.common.utils.FileUtils;
 import com.and.framework.demo.TestBaseActivity;
 
 import butterknife.BindView;
@@ -53,4 +55,11 @@ public class MainActivity extends BaseActivity {
                 break;
         }
     }
+
+    @OnClick(R.id.btn_download)
+    public void downFile(){
+
+        DownloadUtils.getInstance().downloadFile(url, FileUtils.getApkPath(this,"zyy.jpg"));
+    }
+
 }

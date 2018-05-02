@@ -14,18 +14,24 @@ import io.reactivex.Observable;
 
 public class HttpClient {
 
-    private HttpService httpService;
+    private static volatile HttpClient sInstance;
+    private static HttpService httpService;
 
     private HttpClient() {
         httpService = RetrofitHelper.getInstance().create(HttpService.class);
     }
 
     public static HttpClient getInstance() {
-        return HttpClientHolder.sInstance;
+        if (sInstance == null){
+            synchronized (HttpClient.class){
+                if (sInstance == null){
+                    sInstance = new HttpClient();
+                }
+            }
+        }
+        return sInstance;
     }
-    private static class HttpClientHolder {
-        private static HttpClient sInstance = new HttpClient();
-    }
+
 
     public <T> Flowable<T> transformer(Observable<BaseResponseBody<T>> observable){
         return observable.compose(RxUtils.<BaseResponseBody<T>>applySchedulers())

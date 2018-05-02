@@ -13,10 +13,11 @@ public class MyApplication  extends AndFApplication implements AndFConfigInterfa
     public void onCreate() {
         super.onCreate();
         try {
-            RetrofitHelper.getInstance().init(OkHttpClientUtils.getInstance().getClient(getAssets().open("")),"");
+            RetrofitHelper.getInstance().init(OkHttpClientUtils.getInstance().getClient(null),"http://www.baidu.com");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        setAndFConfigInterface(this);
 
     }
 

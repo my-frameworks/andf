@@ -7,6 +7,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitHelper {
+
+    private static volatile RetrofitHelper sInstance;
     private static Retrofit retrofit;
 
     private RetrofitHelper() {
@@ -14,14 +16,17 @@ public class RetrofitHelper {
     }
 
     public static RetrofitHelper getInstance() {
-        return RetrofitHelperHolder.sInstance;
+        if (sInstance == null){
+            synchronized (RetrofitHelper.class){
+                if (sInstance == null){
+                    sInstance = new RetrofitHelper();
+                }
+            }
+        }
+        return sInstance;
     }
 
-    private static class RetrofitHelperHolder {
 
-        private static RetrofitHelper sInstance = new RetrofitHelper();
-
-    }
 
     public void init(OkHttpClient client, String baseUrl) {
         if (retrofit == null) {

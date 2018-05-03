@@ -1,5 +1,7 @@
 package com.and.framework.common;
 
+import android.util.Log;
+
 import java.io.IOException;
 
 import io.reactivex.annotations.Nullable;
@@ -37,7 +39,7 @@ public class ProgressResponseBody  extends ResponseBody{
         if (bufferedSource == null){
             bufferedSource = Okio.buffer(source(responseBody.source()));
         }
-        return null;
+        return bufferedSource;
     }
     private Source source(Source source){
         return new ForwardingSource(source) {

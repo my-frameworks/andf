@@ -2,6 +2,9 @@ package com.and.framework;
 
 import android.support.annotation.Nullable;
 
+import com.and.framework.common.ProgressListener;
+import com.and.framework.common.ProgressResponseBody;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyStore;
@@ -23,6 +26,8 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 public class OkHttpClientUtils {
+
+    private ProgressListener mProgressResponseListener;
 
     public static OkHttpClientUtils getInstance() {
         return OkHttpClientUtilsHolder.sInstance;
@@ -50,8 +55,11 @@ public class OkHttpClientUtils {
                         .method(originalRequest.method(), originalRequest.body())
                         .header("token", "custom get token")
                         .build();
+                Response originalResponse = chain.proceed(request);
 
-                return chain.proceed(request);
+                return originalResponse.newBuilder()
+                        .body(new ProgressResponseBody(originalResponse.body(),mProgressResponseListener))
+                        .build();
             }
         };
 
@@ -68,6 +76,12 @@ public class OkHttpClientUtils {
 
         return builder.build();
     }
+
+    public  void setProgressResponseListener(ProgressListener progressResponseListener){
+        mProgressResponseListener = progressResponseListener;
+    }
+
+
 
     //配置https相关
     private void setHttpsConfig(OkHttpClient.Builder builder, InputStream cert) {

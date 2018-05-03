@@ -1,10 +1,12 @@
 package com.and.framework;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.and.framework.common.ProgressListener;
 import com.and.framework.common.component.ImageLoaderClient;
 import com.and.framework.common.activity.BaseActivity;
 import com.and.framework.common.utils.DownloadUtils;
@@ -24,6 +26,7 @@ public class MainActivity extends BaseActivity {
     Button btnBaseActivity;
     @BindView(R.id.baseFragment)
     Button btnBaseFragment;
+
 
     @Override
     protected int getLayoutRes() {
@@ -58,8 +61,16 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.btn_download)
     public void downFile() {
-
         DownloadUtils.getInstance().downloadFile(url, FileUtils.getApkPath(this, "zyy.jpg"));
     }
+
+    ProgressListener progressListener = new ProgressListener() {
+        @Override
+        public void onProgress(long progress, long total, boolean done) {
+            Log.e("yyzhang","###progress="+progress+"total="+total+"done="+done);
+
+        }
+    };
+
 
 }

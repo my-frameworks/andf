@@ -45,11 +45,12 @@ public class OkHttpClientUtils {
         Interceptor interceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                Request originalRequest = chain.request();
-                Request request = originalRequest.newBuilder()
-                        .method(originalRequest.method(), originalRequest.body())
+                Request orginalRequest = chain.request();
+                Request request = orginalRequest.newBuilder()
+                        .method(orginalRequest.method(), orginalRequest.body())
                         .header("token", "custom get token")
                         .build();
+//                Response orginalResponse = chain.proceed(request);
 
                 return chain.proceed(request);
             }
@@ -68,6 +69,8 @@ public class OkHttpClientUtils {
 
         return builder.build();
     }
+
+
 
     //配置https相关
     private void setHttpsConfig(OkHttpClient.Builder builder, InputStream cert) {

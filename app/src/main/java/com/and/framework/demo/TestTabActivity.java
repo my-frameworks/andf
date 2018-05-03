@@ -20,14 +20,17 @@ import com.and.framework.demo.tab.Fragment7;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Created by zhangyadong on 2018/5/3.
  */
 
 public class TestTabActivity extends BaseActivity {
-
-    private TabLayout tabLayout_shouye;
-    private ViewPager viewPager_shouye;
+    @BindView(R.id.tablayout_shouye)
+    TabLayout tabLayout_shouye;
+    @BindView(R.id.viewpager)
+    ViewPager viewPager_shouye;
 
     private List<BaseFragment> fragments = new ArrayList<>();
     private List<String> strings = new ArrayList<>();
@@ -49,8 +52,6 @@ public class TestTabActivity extends BaseActivity {
     }
 
     private void initView() {
-        tabLayout_shouye = (TabLayout) findViewById(R.id.tablayout_shouye);
-        viewPager_shouye = (ViewPager) findViewById(R.id.viewpager);
         viewPager_shouye.setAdapter(new TabFragmentAdapter(fragments, strings, getSupportFragmentManager(), this));
         tabLayout_shouye.setupWithViewPager(viewPager_shouye);
         tabLayout_shouye.setTabTextColors(getResources().getColor(R.color.colorPrimary)

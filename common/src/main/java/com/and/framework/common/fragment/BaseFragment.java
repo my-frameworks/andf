@@ -48,7 +48,7 @@ public abstract class BaseFragment extends LazyFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(inflateContentView(), container, false);
-        mUnbinder = ButterKnife.bind(this, root);
+        mUnbinder = ButterKnife.bind(this, container);
         onInitializeView(root);
         setPreparedStatus(true);
         return root;

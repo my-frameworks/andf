@@ -61,17 +61,18 @@ public class TestTabActivity extends BaseActivity {
     private void initdate() {
         Fragment1 fragment1 = new Fragment1();
         fragments.add(fragment1);
-        strings.add("推荐");
+        strings.add("推234234荐");
         Fragement2 fragment2 = new Fragement2();
         fragments.add(fragment2);
-        strings.add("热点");
+        strings.add("热123123点");
 
         Fragement3 fragment3 = new Fragement3();
         fragments.add(fragment3);
         strings.add("视频");
         Fragment4 fragment4 = new Fragment4();
         fragments.add(fragment4);
-        strings.add("西安");
+
+        strings.add("西ew安");
         Fragment5 fragment5 = new Fragment5();
         fragments.add(fragment5);
         strings.add("社会");

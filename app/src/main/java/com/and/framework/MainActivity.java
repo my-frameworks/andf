@@ -10,6 +10,7 @@ import com.and.framework.common.activity.BaseActivity;
 import com.and.framework.common.utils.DownloadUtils;
 import com.and.framework.common.utils.FileUtils;
 import com.and.framework.demo.TestBaseActivity;
+import com.and.framework.demo.TestTabActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -36,7 +37,6 @@ public class MainActivity extends BaseActivity {
         setToolbarVisible(false);
 
 
-
     }
 
     @Override
@@ -48,18 +48,18 @@ public class MainActivity extends BaseActivity {
     public void click(View view) {
         switch (view.getId()) {
             case R.id.baseActivity:
-                    launchScreen(TestBaseActivity.class);
+                launchScreen(TestBaseActivity.class);
                 break;
             case R.id.baseFragment:
-                showProgressDialog();
+                launchScreen(TestTabActivity.class);
                 break;
         }
     }
 
     @OnClick(R.id.btn_download)
-    public void downFile(){
+    public void downFile() {
 
-        DownloadUtils.getInstance().downloadFile(url, FileUtils.getApkPath(this,"zyy.jpg"));
+        DownloadUtils.getInstance().downloadFile(url, FileUtils.getApkPath(this, "zyy.jpg"));
     }
 
 }

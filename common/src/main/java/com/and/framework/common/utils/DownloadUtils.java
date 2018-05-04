@@ -2,6 +2,7 @@ package com.and.framework.common.utils;
 
 import android.support.annotation.Nullable;
 
+import com.and.framework.common.BaseResponseBody;
 import com.and.framework.common.listener.FileDownloadService;
 import com.and.framework.common.component.RetrofitHelper;
 
@@ -12,6 +13,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 
@@ -25,7 +29,6 @@ public class DownloadUtils {
     }
 
     public static DownloadUtils getInstance() {
-
         if (sInstance == null) {
             synchronized (DownloadUtils.class) {
                 if (sInstance == null) {
@@ -66,6 +69,7 @@ public class DownloadUtils {
                     @Override
                     public void onError(Throwable e) {
 
+
                     }
 
                     @Override
@@ -74,5 +78,36 @@ public class DownloadUtils {
                     }
                 });
 
+    }
+
+
+    public void uploadFile(String url,File uploadFile) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), uploadFile);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("uploadFile", uploadFile.getName(), requestBody);
+
+        downloadService.uploadSingleFile(url,body)
+                .compose(RxUtils.<BaseResponseBody<String>>applySchedulers())
+                .compose(RxUtils.<String>extractResult())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

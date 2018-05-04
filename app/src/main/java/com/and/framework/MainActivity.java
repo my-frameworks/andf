@@ -14,8 +14,13 @@ import com.and.framework.common.utils.FileUtils;
 import com.and.framework.demo.TestBaseActivity;
 import com.and.framework.demo.TestTabActivity;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 
 public class MainActivity extends BaseActivity {
@@ -57,6 +62,17 @@ public class MainActivity extends BaseActivity {
                 launchScreen(TestTabActivity.class);
                 break;
         }
+    }
+
+    @OnClick(R.id.upload_file)
+    void UploadFile(){
+
+
+
+        File uploadFile = new File("/storage/emulated/0/QQReader/PlugInImg/11_3_c.png");
+
+
+        DownloadUtils.getInstance().uploadFile("http://1192.168.200.234:8080/web/UploadServlet",uploadFile);
     }
 
     @OnClick(R.id.btn_download)

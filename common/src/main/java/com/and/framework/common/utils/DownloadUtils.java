@@ -1,10 +1,8 @@
 package com.and.framework.common.utils;
 
-import android.content.res.Resources;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
-import com.and.framework.common.FileDownloadService;
+import com.and.framework.common.listener.FileDownloadService;
 import com.and.framework.common.component.RetrofitHelper;
 
 import java.io.File;
@@ -36,7 +34,6 @@ public class DownloadUtils {
             }
         }
         return sInstance;
-
     }
 
 
@@ -63,7 +60,7 @@ public class DownloadUtils {
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
-
+                        disposable.dispose();
                     }
 
                     @Override
@@ -73,7 +70,7 @@ public class DownloadUtils {
 
                     @Override
                     public void onComplete() {
-                        disposable.dispose();
+
                     }
                 });
 

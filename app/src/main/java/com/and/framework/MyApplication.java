@@ -3,7 +3,7 @@ package com.and.framework;
 import android.util.Log;
 
 import com.and.framework.common.AndFApplication;
-import com.and.framework.common.ProgressListener;
+import com.and.framework.common.listener.ProgressListener;
 import com.and.framework.common.agency.AndFConfigInterface;
 
 import com.and.framework.common.component.RetrofitHelper;

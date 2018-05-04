@@ -1,6 +1,6 @@
 package com.and.framework.common;
 
-import android.util.Log;
+import com.and.framework.common.listener.ProgressListener;
 
 import java.io.IOException;
 

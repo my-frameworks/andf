@@ -2,7 +2,7 @@ package com.and.framework;
 
 import android.support.annotation.Nullable;
 
-import com.and.framework.common.ProgressListener;
+import com.and.framework.common.listener.ProgressListener;
 import com.and.framework.common.ProgressResponseBody;
 
 import java.io.IOException;

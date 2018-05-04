@@ -1,4 +1,4 @@
-package com.and.framework.common;
+package com.and.framework.common.listener;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;

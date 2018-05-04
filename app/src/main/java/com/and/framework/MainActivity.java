@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.and.framework.common.ProgressListener;
+import com.and.framework.common.listener.ProgressListener;
 import com.and.framework.common.component.ImageLoaderClient;
 import com.and.framework.common.activity.BaseActivity;
 import com.and.framework.common.utils.DownloadUtils;

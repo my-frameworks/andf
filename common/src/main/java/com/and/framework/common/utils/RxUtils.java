@@ -47,10 +47,10 @@ public class RxUtils {
                     @Override
                     public ObservableSource<T> apply(BaseResponseBody<T> tBaseResponseBody) throws Exception {
 
-                        if (tBaseResponseBody.getCode() == 0){
-                            return Observable.just(tBaseResponseBody.getResult());
+                        if (tBaseResponseBody.getErr() == 0){
+                            return Observable.just(tBaseResponseBody.getData());
                         }
-                        return Observable.error(new Throwable(tBaseResponseBody.getMessage()));
+                        return Observable.error(new Throwable(tBaseResponseBody.getMsg()));
                     }
                 });
             }

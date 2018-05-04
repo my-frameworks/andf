@@ -1,32 +1,31 @@
 package com.and.framework.common;
 
 public class BaseResponseBody<T> {
-    private int code;
-    private String message;
-    private T result;
+    private int err;//0:业务处理成功,!0 :业务处理错误
+    private String msg;
+    private T data;
 
-
-    public int getCode() {
-        return code;
+    public int getErr() {
+        return err;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setErr(int err) {
+        this.err = err;
     }
 
-    public T getResult() {
-        return result;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setResult(T result) {
-        this.result = result;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public String getMessage() {
-        return message;
+    public T getData() {
+        return data;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setData(T data) {
+        this.data = data;
     }
 }

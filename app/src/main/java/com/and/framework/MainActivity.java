@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.and.framework.common.activity.ToolbarConfigurator;
 import com.and.framework.common.listener.ProgressListener;
 import com.and.framework.common.component.ImageLoaderClient;
 import com.and.framework.common.activity.BaseActivity;
@@ -18,9 +19,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+
 
 
 public class MainActivity extends BaseActivity {
@@ -40,9 +39,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onViewCreated() {
+        setToolbarVisible(true);
         imageView = (ImageView) findViewById(R.id.image_view);
         ImageLoaderClient.get().load(this, url, imageView);
-        setToolbarVisible(false);
 
 
     }
@@ -87,6 +86,12 @@ public class MainActivity extends BaseActivity {
 
         }
     };
+
+    @Override
+    protected void onInterceptMenuCreation(ToolbarConfigurator configurator) {
+        super.onInterceptMenuCreation(configurator);
+        configurator.setTitle("cccc");
+    }
 
 
 }

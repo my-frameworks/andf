@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.and.framework.R;
 import com.and.framework.common.fragment.BaseFragment;
+import com.and.framework.demo.TestWebView;
 
 import org.w3c.dom.Text;
 
@@ -31,5 +32,11 @@ public class Fragment1 extends BaseFragment {
     @Override
     protected void onInitializeView(View view) {
         testTex.setText("xxxxxx");
+        testTex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchScreen(TestWebView.class);
+            }
+        });
     }
 }

@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.and.framework.common.mvp.BasePresenter;
+import com.and.framework.common.mvp.BaseView;
 import com.and.framework.common.widget.LoadingProgressDialog;
 
 import butterknife.ButterKnife;
@@ -18,12 +21,13 @@ import butterknife.Unbinder;
  * Created by zyd on 2017/7/24.
  */
 
-public abstract class BaseFragment extends LazyFragment {
+public abstract class BaseFragment<T extends BasePresenter> extends LazyFragment implements BaseView {
 
     protected String TAG = this.getClass().getSimpleName();
 
     private Unbinder mUnbinder;
     private LoadingProgressDialog mProgressDialog;
+    protected T mPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public abstract class BaseFragment extends LazyFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(inflateContentView(), container, false);
+        mPresenter = getPresenter();
         setPreparedStatus(true);
         return root;
     }
@@ -63,6 +68,9 @@ public abstract class BaseFragment extends LazyFragment {
     public void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+        }
     }
 
     protected View findViewById(int res) {
@@ -73,14 +81,16 @@ public abstract class BaseFragment extends LazyFragment {
 
     protected abstract void onInitializeView(View view);
 
-    protected void showProgressDialog() {
+    @Override
+    public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new LoadingProgressDialog(getContext());
         }
         mProgressDialog.show();
     }
 
-    protected void dismissProgressDialog() {
+    @Override
+    public void dismissProgressDialog() {
         if (mProgressDialog == null) {
             return;
         }
@@ -102,6 +112,10 @@ public abstract class BaseFragment extends LazyFragment {
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.startActivity(intent);
+    }
+
+    protected T getPresenter() {
+        return null;
     }
 
 }

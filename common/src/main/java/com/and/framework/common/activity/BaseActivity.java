@@ -13,9 +13,12 @@ import android.widget.TextView;
 
 
 import com.and.framework.common.R;
+import com.and.framework.common.mvp.BasePresenter;
+import com.and.framework.common.mvp.BaseView;
 import com.and.framework.common.widget.LoadingProgressDialog;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -25,7 +28,7 @@ import butterknife.Unbinder;
  * General UI Activity of the parent class
  */
 
-public abstract class BaseActivity extends RxActivity {
+public abstract class BaseActivity<T extends BasePresenter> extends RxActivity implements BaseView {
 
     protected String TAG = this.getClass().getSimpleName();
 
@@ -34,6 +37,7 @@ public abstract class BaseActivity extends RxActivity {
     private FrameLayout mContentLayout;
     private LoadingProgressDialog mProgressDialog;
     private Unbinder mUnbinder;
+    protected T mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +46,7 @@ public abstract class BaseActivity extends RxActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.basic_activity_layout);
-
+        mPresenter = getPresenter();
         initParentViews();
 
         mUnbinder = ButterKnife.bind(this);
@@ -56,6 +60,9 @@ public abstract class BaseActivity extends RxActivity {
     protected void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+        }
     }
 
     @Override
@@ -123,18 +130,24 @@ public abstract class BaseActivity extends RxActivity {
         mToolbar.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
-    protected void showProgressDialog() {
+    @Override
+    public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new LoadingProgressDialog(this);
         }
         mProgressDialog.show();
     }
 
-    protected void dismissProgressDialog() {
+    @Override
+    public void dismissProgressDialog() {
         if (mProgressDialog == null) {
             return;
         }
         mProgressDialog.dismiss();
+    }
+
+    protected T getPresenter() {
+        return null;
     }
 
     protected void setProgressDialogMessage(String message) {
@@ -143,6 +156,7 @@ public abstract class BaseActivity extends RxActivity {
         }
         mProgressDialog.setMessage(message);
     }
+
 
     /**
      * 是否加载动画

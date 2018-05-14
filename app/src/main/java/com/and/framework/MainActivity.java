@@ -12,6 +12,7 @@ import com.and.framework.common.component.ImageLoaderClient;
 import com.and.framework.common.activity.BaseActivity;
 import com.and.framework.common.utils.DownloadUtils;
 import com.and.framework.common.utils.FileUtils;
+import com.and.framework.common.utils.ToastUtils;
 import com.and.framework.demo.TestBaseActivity;
 import com.and.framework.demo.TestTabActivity;
 
@@ -22,7 +23,7 @@ import butterknife.OnClick;
 
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainView{
     private ImageView imageView;
     private String url = "http://e.hiphotos.baidu.com/image/pic/item/aa18972bd40735fa324a79d792510fb30f240821.jpg";
 
@@ -41,9 +42,12 @@ public class MainActivity extends BaseActivity {
     protected void onViewCreated() {
         setToolbarVisible(true);
         imageView = (ImageView) findViewById(R.id.image_view);
-        ImageLoaderClient.get().load(this, url, imageView);
+        mPresenter.attachView(this);
+    }
 
-
+    @Override
+    protected MainPresenter getPresenter() {
+        return new MainPresenter();
     }
 
     @Override
@@ -82,7 +86,6 @@ public class MainActivity extends BaseActivity {
     ProgressListener progressListener = new ProgressListener() {
         @Override
         public void onProgress(long progress, long total, boolean done) {
-            Log.e("yyzhang","###progress="+progress+"total="+total+"done="+done);
 
         }
     };
@@ -90,8 +93,18 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onInterceptMenuCreation(ToolbarConfigurator configurator) {
         super.onInterceptMenuCreation(configurator);
-        configurator.setTitle("cccc");
+        configurator.setTitle("首页");
     }
 
 
+    @Override
+    public void showMessage(String message) {
+        ToastUtils.showToast(this,message);
+    }
+
+    @OnClick(R.id.show_image)
+    void showImage(){
+        mPresenter.getData();
+        ImageLoaderClient.get().load(this, url, imageView);
+    }
 }
